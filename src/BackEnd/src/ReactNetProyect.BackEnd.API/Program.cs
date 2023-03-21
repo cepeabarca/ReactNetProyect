@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using ReactNetProyect.BackEnd.API.ApiBehavior;
 using ReactNetProyect.BackEnd.API.Filters;
 using ReactNetProyect.BackEnd.Data;
 using ReactNetProyect.BackEnd.Data.Repositories;
 using ReactNetProyect.BackEnd.Service;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +32,26 @@ builder.Services.AddCors(options =>
         builder.WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
     });
 });
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ReactNetProyectContext>()
+                .AddDefaultTokenProviders();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opciones =>
+                opciones.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(builder.Configuration.GetConnectionString("JWTKey"))),
+                    ClockSkew = TimeSpan.Zero
+                });
+builder.Services.AddAuthorization(opciones =>
+{
+    opciones.AddPolicy("EsAdmin", policy => policy.RequireClaim("role", "admin"));
+});
 
 builder.Services.AddScoped<ReceiptRepository>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>(); 
