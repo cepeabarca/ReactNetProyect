@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ReactNetProyect.BackEnd.API.ApiBehavior;
 using ReactNetProyect.BackEnd.API.Filters;
 using ReactNetProyect.BackEnd.Data;
@@ -16,17 +17,39 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer",
+    new OpenApiSecurityScheme
+    {
+        Description = "JWT Cabecero de Autorización usando Bearer esquema",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+        new OpenApiSecurityScheme{
+            Reference = new OpenApiReference{
+                Id="Bearer",
+                Type = ReferenceType.SecurityScheme
+            }
+        }, new List<string>()
+    }
+    });
+    c.OperationFilter<AuthenticationHeadersFilter>();
+
+});
 builder.Services.AddSqlServer<ReactNetProyectContext>(builder.Configuration.GetConnectionString("ReactNetProyectContextDB"),
     b => b.MigrationsAssembly("ReactNetProyect.BackEnd.Data"));
 
-var frontendURL = builder.Configuration.GetConnectionString("frontend_url");
+var frontendURL = builder.Configuration.GetValue<string>("frontend_url");
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "Cores", builder =>
     {
         
         builder.AllowAnyHeader();
+        //builder.AllowAnyOrigin();
         builder.WithOrigins(frontendURL);
         builder.AllowAnyMethod();
         builder.WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
@@ -45,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration.GetConnectionString("JWTKey"))),
+                        Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JWTKey"))),
                     ClockSkew = TimeSpan.Zero
                 });
 builder.Services.AddAuthorization(opciones =>
@@ -54,6 +77,7 @@ builder.Services.AddAuthorization(opciones =>
 });
 
 builder.Services.AddScoped<ReceiptRepository>();
+builder.Services.AddScoped<CurrencyRepository>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>(); 
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -71,9 +95,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("Cores");
 app.UseHttpsRedirection();
 app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();

@@ -39,7 +39,7 @@ namespace ReactNetProyect.BackEnd.API.Controllers
 
         [HttpGet("listadoUsuarios")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
-        public async Task<ActionResult<List<UserDTO>>> ListadoUsuarios([FromQuery] PagerDTO pagerDTO)
+        public async Task<ActionResult<List<UserDTO>>> ListUsers([FromQuery] PagerDTO pagerDTO)
         {
             var queryable = _context.Users.AsQueryable();
             await HttpContext.InsertPagerParamsInHeader(queryable);
@@ -47,9 +47,9 @@ namespace ReactNetProyect.BackEnd.API.Controllers
             return _mapper.Map<List<UserDTO>>(usuarios);
         }
 
-        [HttpPost("HacerAdmin")]
+        [HttpPost("MakeAdmin")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
-        public async Task<ActionResult> HacerAdmin([FromBody] string usuarioId)
+        public async Task<ActionResult> MakeAdmin([FromBody] string usuarioId)
         {
             var usuario = await _userManager.FindByIdAsync(usuarioId);
             await _userManager.AddClaimAsync(usuario, new Claim("role", "admin"));
@@ -65,15 +65,15 @@ namespace ReactNetProyect.BackEnd.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("crear")]
-        public async Task<ActionResult<AuthResponse>> Crear([FromBody] UserCredentials credenciales)
+        [HttpPost("Create")]
+        public async Task<ActionResult<AuthResponse>> Create([FromBody] UserCredentials credenciales)
         {
             var usuario = new IdentityUser { UserName = credenciales.Email, Email = credenciales.Email };
             var resultado = await _userManager.CreateAsync(usuario, credenciales.Password);
 
             if (resultado.Succeeded)
             {
-                return await ConstruirToken(credenciales);
+                return await BuildToken(credenciales);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace ReactNetProyect.BackEnd.API.Controllers
 
             if (resultado.Succeeded)
             {
-                return await ConstruirToken(credenciales);
+                return await BuildToken(credenciales);
             }
             else
             {
@@ -97,7 +97,7 @@ namespace ReactNetProyect.BackEnd.API.Controllers
             }
         }
 
-        private async Task<AuthResponse> ConstruirToken(UserCredentials credenciales)
+        private async Task<AuthResponse> BuildToken(UserCredentials credenciales)
         {
             var claims = new List<Claim>()
             {
