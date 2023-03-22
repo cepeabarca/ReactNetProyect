@@ -17,11 +17,11 @@ namespace ReactNetProyect.BackEnd.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Receipt>> GetAllReceiptsAsync()
+        public IQueryable<Receipt> GetAllReceipts()
         {
-            return await _context.Receipts
+            return _context.Receipts
                 .Include(r => r.Currency)
-                .ToListAsync();
+                .AsQueryable();
         }
 
         public async Task<Receipt> GetReceiptByIdAsync(int id)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ReactNetProyect.BackEnd.Data.Models
@@ -19,6 +20,8 @@ namespace ReactNetProyect.BackEnd.Data.Models
         public string? Comment { get; set; }
 
         public int CurrencyId { get; set; }
+
+        [JsonIgnore]
         public Currency Currency { get; set; }
     }
 }

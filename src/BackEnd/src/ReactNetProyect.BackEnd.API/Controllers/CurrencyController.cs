@@ -7,8 +7,8 @@ using ReactNetProyect.BackEnd.Service;
 namespace ReactNetProyect.BackEnd.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CurrencyController : Controller
     {
         private readonly ICurrencyService _currencyService;

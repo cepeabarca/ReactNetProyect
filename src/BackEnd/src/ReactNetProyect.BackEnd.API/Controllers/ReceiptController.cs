@@ -7,12 +7,13 @@ using ReactNetProyect.BackEnd.API.Utils;
 using ReactNetProyect.BackEnd.Data.Models;
 using ReactNetProyect.BackEnd.Service;
 using ReactNetProyect.Shared.DTO;
+using System.Linq;
 
 namespace ReactNetProyect.BackEnd.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ReceiptController : Controller
     {
         private readonly IReceiptService _receiptService;
@@ -25,11 +26,11 @@ namespace ReactNetProyect.BackEnd.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Receipt>>> GetAllReceiptsAsync([FromQuery] PagerDTO pagerDTO)
+        public async Task<ActionResult<IEnumerable<ReceiptDTO>>> GetAllReceiptsAsync([FromQuery] PagerDTO pagerDTO)
         {
-            var queryable = (await _receiptService.GetAllReceiptsAsync()).AsQueryable();
-            await HttpContext.InsertPagerParamsInHeader(queryable);
-            var receipts = await queryable.OrderBy(x => x.Date).Pager(pagerDTO).ToListAsync();
+            var query = _receiptService.GetAllReceipts();
+            await HttpContext.InsertPagerParamsInHeader(query);
+            var receipts = await query.OrderBy(x => x.Date).Pager(pagerDTO).ToListAsync();
             return Ok(_mapper.Map<List<ReceiptDTO>>(receipts));
         }
 

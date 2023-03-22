@@ -16,30 +16,17 @@ export default function Menu() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <NavLink className="navbar-brand"
-                    to="/">Recibos</NavLink>
+                    to="/receipts">Recibos</NavLink>
                 <div className="collapse navbar-collapse" 
                 style={{display: 'flex', justifyContent: 'space-between' }}>
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <li className="nav-item">
-                            <NavLink className="nav-link" 
-                                to="/peliculas/filtrar">
-                                Filtrar Recibos
-                            </NavLink>
-                        </li>
                         <Autorizado role="admin"
                             autorizado={
                                 <>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" 
-                                            to="/generos">
-                                            Géneros
-                            </NavLink>
-                                    
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" 
-                                            to="/usuarios">
+                                            to="/users">
                                             Usuarios
                             </NavLink>
                                     </li>

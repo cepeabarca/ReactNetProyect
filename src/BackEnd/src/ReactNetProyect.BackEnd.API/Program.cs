@@ -17,28 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer",
-    new OpenApiSecurityScheme
-    {
-        Description = "JWT Cabecero de Autorización usando Bearer esquema",
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
-        {
-        new OpenApiSecurityScheme{
-            Reference = new OpenApiReference{
-                Id="Bearer",
-                Type = ReferenceType.SecurityScheme
-            }
-        }, new List<string>()
-    }
-    });
-    c.OperationFilter<AuthenticationHeadersFilter>();
-
-});
+builder.Services.AddSwaggerGen();
 builder.Services.AddSqlServer<ReactNetProyectContext>(builder.Configuration.GetConnectionString("ReactNetProyectContextDB"),
     b => b.MigrationsAssembly("ReactNetProyect.BackEnd.Data"));
 
@@ -49,7 +28,6 @@ builder.Services.AddCors(options =>
     {
         
         builder.AllowAnyHeader();
-        //builder.AllowAnyOrigin();
         builder.WithOrigins(frontendURL);
         builder.AllowAnyMethod();
         builder.WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
@@ -99,6 +77,7 @@ app.UseCors("Cores");
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

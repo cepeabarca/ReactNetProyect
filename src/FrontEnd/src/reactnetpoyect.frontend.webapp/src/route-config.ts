@@ -1,7 +1,7 @@
-// import IndiceGeneros from "./generos/IndiceGeneros";
+ import ReceiptsIndex from "./receipts/ReceiptIndex";
  import LandingPage from "./LandingPage";
-// import CrearGenero from "./generos/CrearGenero"
-// import EditarGenero from "./generos/EditarGenero"
+ import CreateReceipt from "./receipts/CreateReceipt"
+ import EditReceipt from "./receipts/EditReceipt"
 
 
  import RedireccionarALanding from './RedirectLandingPage'
@@ -10,19 +10,19 @@ import Login from "./auth/Login";
 import UserIndex from './auth/UserIndex';
 
 const rutas = [
-    // {path: '/generos/crear', componente: CrearGenero, esAdmin: true},
-    // {path: '/generos/editar/:id(\\d+)', componente: EditarGenero, esAdmin: true},
-    // {path: '/generos', componente: IndiceGeneros, exact: true, esAdmin: true},
-
-    // {path: '/actores/crear', componente: CrearActores, esAdmin: true},
-
-
     {path: '/registro', componente: Registro},
     {path: '/login', componente: Login},
-    {path: '/usuarios', componente: UserIndex, esAdmin: true},
+    {path: '/users', componente: UserIndex, esAdmin: true},
 
-     {path: '/', componente: LandingPage, exact: true},
-     {path: '*', componente: RedireccionarALanding}
+     
+
+    {path: '/receipts/create', componente: CreateReceipt},
+    {path: '/receipts/edit/:id', componente: EditReceipt},
+    {path: '/receipts', componente: ReceiptsIndex, exact: true},
+
+    {path: '/', componente: LandingPage, exact: true},
+    {path: '*', componente: RedireccionarALanding},
+
 ];
 
 export default rutas;

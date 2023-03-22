@@ -32,7 +32,7 @@ export default function UserIndex() {
 
     return (
         <EntityIndex<usuarioDTO>
-            url={`${urlCuentas}/listadoUsuarios`}
+            url={`${urlCuentas}/ListUsers`}
             titulo="Usuarios"
             >
 

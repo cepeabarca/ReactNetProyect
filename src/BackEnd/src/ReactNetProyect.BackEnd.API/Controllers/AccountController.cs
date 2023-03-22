@@ -37,7 +37,7 @@ namespace ReactNetProyect.BackEnd.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("listadoUsuarios")]
+        [HttpGet("ListUsers")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
         public async Task<ActionResult<List<UserDTO>>> ListUsers([FromQuery] PagerDTO pagerDTO)
         {

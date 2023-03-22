@@ -10,23 +10,24 @@ export default function EntityIndex<T>(props: indiceEntidadProps<T>) {
 
     const [entidades, setEntidades] = useState<T[]>();
     const [totalDePaginas, setTotalDePaginas] = useState(0);
-    const [recordsPorPagina, setRecordsPorPagina] = useState(10);
-    const [pagina, setPagina] = useState(1);
+    const [RecordsXPage, setRecordsPorPagina] = useState(10);
+    const [Page, setPagina] = useState(1);
 
     useEffect(() => {
         cargarDatos();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pagina, recordsPorPagina])
+    }, [Page, RecordsXPage])
 
     function cargarDatos() {
         axios.get(props.url, {
-            params: { pagina, recordsPorPagina }
+            params: { Page, RecordsXPage }
         })
             .then((respuesta: AxiosResponse<T[]>) => {
                 const totalDeRegistros =
-                    parseInt(respuesta.headers['cantidadtotalregistros'], 10);
-                setTotalDePaginas(Math.ceil(totalDeRegistros / recordsPorPagina));
+                    parseInt(respuesta.headers['cantidadTotalRegistros'], 10);
+                setTotalDePaginas(Math.ceil(totalDeRegistros / RecordsXPage));
                 setEntidades(respuesta.data);
+                debugger;
             })
     }
 
@@ -71,7 +72,7 @@ export default function EntityIndex<T>(props: indiceEntidadProps<T>) {
             </div>
 
             <Paginacion cantidadTotalDePaginas={totalDePaginas}
-                paginaActual={pagina} onChange={nuevaPagina => setPagina(nuevaPagina)} />
+                paginaActual={Page} onChange={nuevaPagina => setPagina(nuevaPagina)} />
 
             <ListadoGenerico listado={entidades}>
                 <table className="table table-striped">
