@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNetProyect.BackEnd.API", "BackEnd\src\ReactNetProyect.BackEnd.API\ReactNetProyect.BackEnd.API.csproj", "{16CA0DE5-A20D-46AB-B939-D928FDEBE1DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactNetProyect.BackEnd.API", "BackEnd\src\ReactNetProyect.BackEnd.API\ReactNetProyect.BackEnd.API.csproj", "{16CA0DE5-A20D-46AB-B939-D928FDEBE1DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNetProyect.BackEnd.Data", "BackEnd\src\ReactNetProyect.BackEnd.Data\ReactNetProyect.BackEnd.Data.csproj", "{5F92F5CE-5625-4639-9E92-C21FF26B406F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNetProyect.BackEnd.Service", "BackEnd\src\ReactNetProyect.BackEnd.Service\ReactNetProyect.BackEnd.Service.csproj", "{FA7C6A39-6588-4AB6-9833-0EE6D08743B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNetProyect.Shared.DTO", "Shared\ReactNetProyect.Shared.DTO\ReactNetProyect.Shared.DTO.csproj", "{3C547070-ED47-4DB2-8254-BD9DAC16793E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D3ACA662-A758-421C-83F3-4BB7C86F1DCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,24 @@ Global
 		{16CA0DE5-A20D-46AB-B939-D928FDEBE1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16CA0DE5-A20D-46AB-B939-D928FDEBE1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16CA0DE5-A20D-46AB-B939-D928FDEBE1DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F92F5CE-5625-4639-9E92-C21FF26B406F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F92F5CE-5625-4639-9E92-C21FF26B406F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F92F5CE-5625-4639-9E92-C21FF26B406F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F92F5CE-5625-4639-9E92-C21FF26B406F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA7C6A39-6588-4AB6-9833-0EE6D08743B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7C6A39-6588-4AB6-9833-0EE6D08743B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7C6A39-6588-4AB6-9833-0EE6D08743B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7C6A39-6588-4AB6-9833-0EE6D08743B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C547070-ED47-4DB2-8254-BD9DAC16793E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C547070-ED47-4DB2-8254-BD9DAC16793E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C547070-ED47-4DB2-8254-BD9DAC16793E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C547070-ED47-4DB2-8254-BD9DAC16793E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C547070-ED47-4DB2-8254-BD9DAC16793E} = {D3ACA662-A758-421C-83F3-4BB7C86F1DCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1C0810A-9017-42A6-A57E-6A995EE48A01}
