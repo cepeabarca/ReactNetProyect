@@ -15,12 +15,20 @@ export default function Menu() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <NavLink className="navbar-brand"
-                    to="/receipts">Recibos</NavLink>
+                
+                {/* <NavLink className="navbar-brand"
+                    to="/receipts">Recibos</NavLink> */}
                 <div className="collapse navbar-collapse" 
                 style={{display: 'flex', justifyContent: 'space-between' }}>
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
+                        <Autorizado
+                        autorizado={<>
+                            
+                            <NavLink className="navbar-brand"
+                            to="/receipts">Recibos</NavLink>
+                            </>}
+                            
+                        />
                         <Autorizado role="admin"
                             autorizado={
                                 <>
