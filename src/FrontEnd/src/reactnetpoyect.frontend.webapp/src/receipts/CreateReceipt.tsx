@@ -5,21 +5,19 @@ import { urlReceipts } from '../Endpoints'
 import MostrarErrores from '../MostrarErrores';
 import { createReceiptsDTO } from './receipts.model'
 import ReceiptForm from './ReceiptForm';
-export default function CrearActores() {
+export default function CrateReceipt() {
 
     const [errores, setErrores] = useState<string[]>([]);
     const navigate = useNavigate();
 
     async function crear(receipt: createReceiptsDTO){
         try{
-           
             await axios({
                 method: 'post',
                 url: urlReceipts,
                 data: receipt,
                 //headers: {'Content-Type': 'multipart/form-data'}
             });
-            debugger;
             navigate('/receipts');
         }
         catch(error: any){

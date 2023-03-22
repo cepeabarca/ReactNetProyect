@@ -32,8 +32,8 @@ export default function ReceiptForm(props: receiptFormProps) {
             onSubmit={props.onSubmit}  
             validationSchema={Yup.object({
                 provider: Yup.string().required('Este campo es requerido'),
-                amount: Yup.string().required('Este campo es requerido'),
-                fecha: Yup.date().nullable().required('Este campo es requerido'),
+                amount: Yup.number().required('Este campo es requerido'),
+                date: Yup.date().required('Este campo es requerido'),
                 comment: Yup.string().required('Este campo es requerido')
             })}
             >
@@ -54,15 +54,12 @@ export default function ReceiptForm(props: receiptFormProps) {
                     <div className="form-group">
                         <label htmlFor="currencyId">Moneda</label>
                         <Field as="select" name="currencyId" className="form-control" campo="currencyId">
-                        <option value="" disabled>Seleccione una moneda</option>
+                        <option value='0' disabled>Seleccione una moneda</option>
                             {currencies.map((currency) => (
                             <option key={currency.id} value={currency.id}>
                             {currency.code}
                         </option> ))}
                         </Field>
-                        <ErrorMessage name="currencyId">{mensaje =>
-                            <MostrarErrorCampo mensaje={mensaje} />
-                        }</ErrorMessage>
                     </div>
                     <Button disabled={formikProps.isSubmitting}
                         type="submit"

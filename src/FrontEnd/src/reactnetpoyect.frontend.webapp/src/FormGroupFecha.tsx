@@ -3,8 +3,8 @@ import MostrarErrorCampo from './MostrarErrorCampo'
 
 export default function FormGroupFecha(props: formGroupFechaProps) {
     const { values, validateForm, touched, errors } = useFormikContext<any>();
-    console.log('values', values);
-    console.log('props.campo', values[props.campo]);
+    // console.log('values', values);
+    // console.log('props.campo', values[props.campo]);
     return (
         <div className="form-group">
             <label htmlFor={props.campo}>{props.label}</label>

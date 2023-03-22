@@ -27,7 +27,6 @@ export default function EntityIndex<T>(props: indiceEntidadProps<T>) {
                     parseInt(respuesta.headers['cantidadTotalRegistros'], 10);
                 setTotalDePaginas(Math.ceil(totalDeRegistros / RecordsXPage));
                 setEntidades(respuesta.data);
-                debugger;
             })
     }
 
